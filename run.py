@@ -8,6 +8,7 @@ from subprocess import call
 from PIL import Image
 import numpy as np
 
+script_dir = os.path.abspath(os.path.dirname(__file__))
 
 def run_cmd(command):
     try:
@@ -20,9 +21,9 @@ def run_cmd(command):
 if __name__ == "__main__":
     # Preprocessing the input images
     print("Initial Preprocessing Start")
-    ipt_path1 = "/Users/Public/Restoration-and-recolourization-main/input_imgs/bw"
-    ipt_path2 = "/Users/Public/Restoration-and-recolourization-main/input_imgs/color"
-    dst_path = "/Users/Public/Restoration-and-recolourization-main/test_images"
+    ipt_path1 = f"{script_dir}/input_imgs/bw"
+    ipt_path2 = f"{script_dir}/input_imgs/color"
+    dst_path = f"{script_dir}/test_images"
     for file in os.listdir(ipt_path1):
         ipt_img = np.asarray(Image.open(os.path.join(ipt_path1, file)).convert('RGB'))
         if max(ipt_img.shape) > 700:
@@ -37,12 +38,12 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
     parser.add_argument("--input_folder", type=str,
-                        default="/Users/Public/Restoration-and-recolourization-main/test_images",
+                        default=f"{script_dir}/test_images",
                         help="Test images")
     parser.add_argument(
         "--output_folder",
         type=str,
-        default="/Users/Public/Restoration-and-recolourization-main/upload_output",
+        default=f"{script_dir}/upload_output",
         help="Restored images, please use the absolute path",
     )
     parser.add_argument("--GPU", type=str, default="0", help="0,1,2")
@@ -164,12 +165,12 @@ if __name__ == "__main__":
     run_cmd(stage_4_command)
 
     print("Running Colorization Step")
-    os.chdir("/Users/Public/Restoration-and-recolourization-main")
+    os.chdir(f"{script_dir}")
     run_cmd(
-        "python demo_release.py -i /Users/Public/Restoration-and-recolourization-main/upload_output/final_output -o /Users/Public/Restoration-and-recolourization-main/input_imgs")
+        f"python demo_release.py -i {script_dir}/upload_output/final_output -o {script_dir}/input_imgs")
 
     print("Running Final Image Enhancement Step")
-    os.chdir("/Users/Public/Restoration-and-recolourization-main")
+    os.chdir(f"{script_dir}")
     run_cmd(
         "python enhancer.py"
     )

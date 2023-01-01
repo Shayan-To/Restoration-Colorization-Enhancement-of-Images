@@ -8,6 +8,7 @@ from enlighten_inference import EnlightenOnnxModel
 from PIL import Image
 import os
 
+script_dir = os.path.abspath(os.path.dirname(__file__))
 
 # Brightness Enhancement
 def brightner(image):
@@ -189,8 +190,8 @@ def custom_function(img):
 
 
 # Processing
-ipt_path = '/Users/Public/Restoration-and-recolourization-main/restored_output/'
-out_path = '/Users/Public/Restoration-and-recolourization-main/output_imgs/'
+ipt_path = f'{script_dir}/restored_output/'
+out_path = f'{script_dir}/output_imgs/'
 image_list = os.listdir(ipt_path)
 for file in image_list:
     input_image = np.asarray(Image.open(os.path.join(ipt_path, file)).convert('RGB'))
