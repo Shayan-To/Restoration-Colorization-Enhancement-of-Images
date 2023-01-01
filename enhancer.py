@@ -1,3 +1,5 @@
+from script_dir import script_dir
+
 import numpy as np
 import matplotlib.pyplot as plt
 import imageio
@@ -7,8 +9,6 @@ import sys
 from enlighten_inference import EnlightenOnnxModel
 from PIL import Image
 import os
-
-script_dir = os.path.abspath(os.path.dirname(__file__))
 
 # Brightness Enhancement
 def brightner(image):

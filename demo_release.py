@@ -1,10 +1,10 @@
+from script_dir import script_dir
+
 import argparse
 import matplotlib.pyplot as plt
 
 from colorizers import *
 import os
-
-script_dir = os.path.abspath(os.path.dirname(__file__))
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-i', '--img_path', type=str,

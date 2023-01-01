@@ -1,5 +1,7 @@
 # Sumanth Nethi
 
+from script_dir import script_dir
+
 import os
 import argparse
 import shutil
@@ -8,11 +10,9 @@ from subprocess import call
 from PIL import Image
 import numpy as np
 
-script_dir = os.path.abspath(os.path.dirname(__file__))
-
 def run_cmd(command):
     try:
-        call(command, shell=True)
+        call(command, env=os.environ, shell=True)
     except KeyboardInterrupt:
         print("Process interrupted")
         sys.exit(1)
